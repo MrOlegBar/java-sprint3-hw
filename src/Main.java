@@ -13,11 +13,11 @@ public class Main {
         EpicTask.SubTask subtaskFirstEpicSecond = new EpicTask.SubTask("Сменить работу","Сдать все спринты"
                 ,"Вовремя выполнить ТЗ", "NEW");
 
-        manager.saveHashMapTask(taskFirst);
-        manager.saveHashMapTask(taskSecond);
-        manager.saveHashMapSubTask(subtaskFirstEpicFirst);
-        manager.saveHashMapSubTask(subtaskSecondEpicFirst);
-        manager.saveHashMapSubTask(subtaskFirstEpicSecond);
+        manager.saveTreeMapTask(taskFirst);
+        manager.saveTreeMapTask(taskSecond);
+        manager.saveTreeMapSubTask(subtaskFirstEpicFirst);
+        manager.saveTreeMapSubTask(subtaskSecondEpicFirst);
+        manager.saveTreeMapSubTask(subtaskFirstEpicSecond);
 
         ArrayList<EpicTask.SubTask> subTasksEpicTaskFirst = new ArrayList<>();
         ArrayList<EpicTask.SubTask> subTasksEpicTaskSecond = new ArrayList<>();
@@ -31,17 +31,13 @@ public class Main {
         EpicTask epicTaskSecond = new EpicTask("Сменить работу"
                 ,"Начать работать Java разработчиком", subTasksEpicTaskSecond);
 
-        manager.saveHashMapEpicTask(epicTaskFirst);
-        manager.saveHashMapEpicTask(epicTaskSecond);
+        manager.saveTreeMapEpicTask(epicTaskFirst);
+        manager.saveTreeMapEpicTask(epicTaskSecond);
 
-        /*System.out.println(taskFirst);
-        System.out.println(taskSecond);
-        System.out.println(subtaskFirstEpicFirst);
-        System.out.println(subtaskSecondEpicFirst);
-        System.out.println(subtaskFirstEpicSecond);
-        System.out.println(epicTaskFirst);
-        System.out.println(epicTaskSecond);*/
+        System.out.println(Arrays.toString(manager.getArrayListAllTasks(manager.treeMapTask).toArray()));
+        System.out.println(Arrays.toString(manager.getArrayListAllTasks(manager.treeMapEpicTask).toArray()));
+        System.out.println(Arrays.toString(manager.getArrayListAllTasks(manager.treeMapSubTask).toArray()));
 
-        System.out.println(Arrays.toString(manager.getArrayListAllTasks(manager.hashMapTask).toArray()));
+        Task task = manager.createTask(Task);
     }
 }

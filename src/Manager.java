@@ -1,32 +1,50 @@
-import java.sql.SQLOutput;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.TreeMap;
 
 public class Manager {
 
     static int id = 0;
-    HashMap<Integer, Task> hashMapTask = new HashMap<>();
-    HashMap<Integer, EpicTask> hashMapEpicTask = new HashMap<>();
-    HashMap<Integer, EpicTask.SubTask> hashMapSubTask = new HashMap<>();
+    TreeMap<Integer, Task> treeMapTask = new TreeMap<>();
+    TreeMap<Integer, EpicTask> treeMapEpicTask = new TreeMap<>();
+    TreeMap<Integer, EpicTask.SubTask> treeMapSubTask = new TreeMap<>();
 
-    void saveHashMapTask(Task task) {
-        hashMapTask.put(task.id, task);
+    void saveTreeMapTask(Task task) {
+        treeMapTask.put(task.id, task);
+    }
+    void saveTreeMapEpicTask(EpicTask epicTask) {
+        treeMapEpicTask.put(epicTask.id, epicTask);
+    }
+    void saveTreeMapSubTask(EpicTask.SubTask subTask) {
+        treeMapSubTask.put(subTask.id, subTask);
     }
 
-    void saveHashMapEpicTask(EpicTask epicTask) {
-        hashMapEpicTask.put(epicTask.id, epicTask);
-    }
-
-    void saveHashMapSubTask(EpicTask.SubTask subTask) {
-        hashMapSubTask.put(subTask.id, subTask);
-    }
-
-    ArrayList<Object> getArrayListAllTasks(HashMap<Integer, ?> hashMap) {
+    ArrayList<Object> getArrayListAllTasks(TreeMap<Integer, ?> treeMap) {
         ArrayList<Object> arrayListAllTasks = new ArrayList<>();
-            for (Integer key : hashMap.keySet()) {
-                arrayListAllTasks.add(hashMap.get(key));
+            for (Integer key : treeMap.keySet()) {
+                arrayListAllTasks.add(treeMap.get(key));
             }
         return arrayListAllTasks;
+    }
+
+    void removeAllTasks(TreeMap<Integer, ?> treeMap) {
+        treeMap.clear();
+    }
+
+    Object getTaskToID(int id) {
+        Object task = null;
+        if (treeMapTask.get(id) != null) {
+            task = treeMapTask.get(id);
+        } else if (treeMapEpicTask.get(id) != null) {
+            task = treeMapEpicTask.get(id);
+        } else if (treeMapSubTask.get(id) != null) {
+            task = treeMapSubTask.get(id);
+        }
+        return task;
+    }
+
+    Object createTask(Object task) {
+
+        return task.clone();
     }
 
     static String getStatusEpicTask(ArrayList<EpicTask.SubTask> subTasks) {
