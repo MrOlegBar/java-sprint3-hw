@@ -4,22 +4,26 @@ public class Task {
     String description;
     String status;
 
-    protected Task(String nameTask, String descriptionTask, String statusTask) {
+    public Task(String nameTask, String descriptionTask, String statusTask) {
         this.id = ++Manager.id;
         this.name = nameTask;
         this.description = descriptionTask;
         this.status = statusTask;
     }
 
-    protected Task(String nameTask, String descriptionTask) {
+    public Task(String nameTask, String descriptionTask) {
         this.id = ++Manager.id;
         this.name = nameTask;
         this.description = descriptionTask;
     }
 
+    public Task(Task task) {
+        this(task.name, task.description, task.status);
+    }
+
     @Override
     public String toString() {
-        return "ID задачи=\"" + id + "\", Название=\"" + name + "\", Описание=\"" + description + "\", Статус=\""
+        return "ID задачи=\"" + id + "\", Название задачи=\"" + name + "\", Описание=\"" + description + "\", Статус=\""
                 + status + "\"";
     }
 }

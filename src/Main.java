@@ -6,25 +6,25 @@ public class Main {
         Manager manager = new Manager();
         Task taskFirst = new Task("Поесть","Принять пищу", "NEW");
         Task taskSecond = new Task("Поспать","Хорошенько выспаться", "DONE");
-        EpicTask.SubTask subtaskFirstEpicFirst = new EpicTask.SubTask("Закончить учебу","Сдать все спринты"
+        EpicTask.SubTask subtaskFirstEpicTaskFirst = new EpicTask.SubTask("Закончить учебу","Сдать все спринты"
                 , "Вовремя выполнить ТЗ", "NEW");
-        EpicTask.SubTask subtaskSecondEpicFirst = new EpicTask.SubTask("Закончить учебу","Сдать дипломный проект"
+        EpicTask.SubTask subtaskSecondEpicTaskFirst = new EpicTask.SubTask("Закончить учебу","Сдать дипломный проект"
                 , "Сделать дипломный проект", "DONE");
-        EpicTask.SubTask subtaskFirstEpicSecond = new EpicTask.SubTask("Сменить работу","Сдать все спринты"
-                ,"Вовремя выполнить ТЗ", "NEW");
+        EpicTask.SubTask subtaskFirstEpicTaskSecond = new EpicTask.SubTask("Сменить работу","Закончить курс по Java"
+                ,"Научиться программировать на языке Java", "NEW");
 
         manager.saveTreeMapTask(taskFirst);
         manager.saveTreeMapTask(taskSecond);
-        manager.saveTreeMapSubTask(subtaskFirstEpicFirst);
-        manager.saveTreeMapSubTask(subtaskSecondEpicFirst);
-        manager.saveTreeMapSubTask(subtaskFirstEpicSecond);
+        manager.saveTreeMapSubTask(subtaskFirstEpicTaskFirst);
+        manager.saveTreeMapSubTask(subtaskSecondEpicTaskFirst);
+        manager.saveTreeMapSubTask(subtaskFirstEpicTaskSecond);
 
         ArrayList<EpicTask.SubTask> subTasksEpicTaskFirst = new ArrayList<>();
         ArrayList<EpicTask.SubTask> subTasksEpicTaskSecond = new ArrayList<>();
 
-        subTasksEpicTaskFirst.add(subtaskFirstEpicFirst);
-        subTasksEpicTaskFirst.add(subtaskSecondEpicFirst);
-        subTasksEpicTaskSecond.add(subtaskFirstEpicSecond);
+        subTasksEpicTaskFirst.add(subtaskFirstEpicTaskFirst);
+        subTasksEpicTaskFirst.add(subtaskSecondEpicTaskFirst);
+        subTasksEpicTaskSecond.add(subtaskFirstEpicTaskSecond);
 
         EpicTask epicTaskFirst = new EpicTask("Закончить учебу","Получить сертификат обучения"
                 , subTasksEpicTaskFirst);
@@ -35,9 +35,10 @@ public class Main {
         manager.saveTreeMapEpicTask(epicTaskSecond);
 
         System.out.println(Arrays.toString(manager.getArrayListAllTasks(manager.treeMapTask).toArray()));
-        System.out.println(Arrays.toString(manager.getArrayListAllTasks(manager.treeMapEpicTask).toArray()));
         System.out.println(Arrays.toString(manager.getArrayListAllTasks(manager.treeMapSubTask).toArray()));
+        System.out.println(Arrays.toString(manager.getArrayListAllTasks(manager.treeMapEpicTask).toArray()));
 
-        Task task = manager.createTask(Task);
+        System.out.println(manager.getArrayListAllSubTask(epicTaskFirst));
+        System.out.println(manager.getArrayListAllSubTask(epicTaskSecond));
     }
 }

@@ -10,10 +10,14 @@ public class EpicTask extends Task {
         this.status = Manager.getStatusEpicTask(subTasks);
     }
 
+    public EpicTask(EpicTask epicTask) {
+        this(epicTask.name, epicTask.description, epicTask.subTasks);
+    }
+
     @Override
     public String toString() {
-        return "ID Epic задачи=\"" + id + "\", Название=\"" + name + "\", Описание=\"" + description + "\"" +
-                ", " + Arrays.toString(subTasks.toArray()) + ", Статус=\"" + status + "\"";
+        return "ID Epic задачи=\"" + id + "\", Название Epic задачи=\"" + name + "\", Описание=\"" + description + "\""
+                + ", " + Arrays.toString(subTasks.toArray()) + ", Статус=\"" + status + "\"";
     }
 
     static class SubTask extends Task {
@@ -24,10 +28,14 @@ public class EpicTask extends Task {
             this.nameEpicTask = nameEpicTask;
         }
 
+        public SubTask(SubTask subtask) {
+            this(subtask.nameEpicTask, subtask.name, subtask.description, subtask.status);
+        }
+
         @Override
         public String toString() {
-            return "ID подзадачи=\"" + id + "\", Название Epic задачи=\"" + nameEpicTask + "\", Название=\"" + name
-                    + "\", Описание=\"" + description + "\", Статус=\"" + status + "\"";
+            return "ID подзадачи=\"" + id + "\", Название Epic задачи=\"" + nameEpicTask + "\", Название подзадачи=\""
+                    + name + "\", Описание=\"" + description + "\", Статус=\"" + status + "\"";
         }
     }
 }

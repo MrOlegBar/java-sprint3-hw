@@ -18,7 +18,7 @@ public class Manager {
         treeMapSubTask.put(subTask.id, subTask);
     }
 
-    ArrayList<Object> getArrayListAllTasks(TreeMap<Integer, ?> treeMap) {
+    ArrayList<Object> getArrayListAllTasks(TreeMap<Integer, ? extends Task> treeMap) {
         ArrayList<Object> arrayListAllTasks = new ArrayList<>();
             for (Integer key : treeMap.keySet()) {
                 arrayListAllTasks.add(treeMap.get(key));
@@ -30,7 +30,7 @@ public class Manager {
         treeMap.clear();
     }
 
-    Object getTaskToID(int id) {
+    Object getTaskToId(int id) {
         Object task = null;
         if (treeMapTask.get(id) != null) {
             task = treeMapTask.get(id);
@@ -42,9 +42,62 @@ public class Manager {
         return task;
     }
 
-    Object createTask(Object task) {
+    public Object createTask(Object task) {
+        switch (task.getClass().toString()) {
+            case "class Task": {
+                return new Task((Task) task);
+            }
+            case "class EpicTask$SubTask": {
+                return new EpicTask.SubTask((EpicTask.SubTask) task);
+            }
+            case "class EpicTask": {
+                return new EpicTask((EpicTask) task);
+            }
+            default:
+                return null;
+        }
+    }
 
-        return task.clone();
+    void updateTask(int id, Object task) {
+        switch (task.getClass().toString()) {
+            case "class Task": {
+                treeMapTask.put(id, (Task) task);
+                break;
+            }
+            case "class EpicTask$SubTask": {
+                treeMapEpicTask.put(id, (EpicTask) task);
+                break;
+            }
+            case "class EpicTask": {
+                treeMapSubTask.put(id, (EpicTask.SubTask) task);
+                break;
+            }
+        }
+    }
+
+    void removeTaskToId(int id) {
+        for (Integer task : treeMapTask.keySet()) {
+            if (id == task) {
+                treeMapTask.remove(id);
+                break;
+            }
+        }
+        for (Integer epicTask : treeMapEpicTask.keySet()) {
+            if (id == epicTask) {
+                treeMapEpicTask.remove(id);
+                break;
+            }
+        }
+        for (Integer subTask : treeMapSubTask.keySet()) {
+            if (id == subTask) {
+                treeMapSubTask.remove(id);
+                break;
+            }
+        }
+    }
+
+    public ArrayList<EpicTask.SubTask> getArrayListAllSubTask(EpicTask epicTask) {
+        return epicTask.subTasks;
     }
 
     static String getStatusEpicTask(ArrayList<EpicTask.SubTask> subTasks) {
