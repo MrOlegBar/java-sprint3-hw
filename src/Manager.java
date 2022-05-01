@@ -4,48 +4,73 @@ import java.util.TreeMap;
  * Класс для объекта-менеджера
  */
 public class Manager {
-    static int Id = 0;
-    TreeMap<Integer, Task> taskStorage = new TreeMap<>();
-    TreeMap<Integer, EpicTask> epicTaskStorage = new TreeMap<>();
-    TreeMap<Integer, EpicTask.SubTask> subTaskStorage = new TreeMap<>();
+    private static int Id = 0;
+
+    private final TreeMap<Integer, Task> taskStorage = new TreeMap<>();
+
+    private final TreeMap<Integer, EpicTask> epicTaskStorage = new TreeMap<>();
+
+    private final TreeMap<Integer, EpicTask.SubTask> subTaskStorage = new TreeMap<>();
 /**
+ * get и set методы
+ */
+    static int getId() {
+        return Id;
+    }
+
+    static void setId(int id) {
+        Id = id;
+    }
+
+    TreeMap<Integer, Task> getTaskStorage() {
+        return taskStorage;
+    }
+
+    TreeMap<Integer, EpicTask> getEpicTaskStorage() {
+        return epicTaskStorage;
+    }
+
+    TreeMap<Integer, EpicTask.SubTask> getSubTaskStorage() {
+        return subTaskStorage;
+    }
+    /**
  * 1. Метод для сохранения задач всех типов.
  */
     void saveToStorage(Object object) {
         switch (object.getClass().toString()) {
             case "class Task": {
-                taskStorage.put(((Task) object).id, (Task) object);
+                taskStorage.put(((Task) object).getId(), (Task) object);
                 break;
             }
             case "class EpicTask": {
-                epicTaskStorage.put(((EpicTask) object).id, (EpicTask) object);
+                epicTaskStorage.put(((EpicTask) object).getId(), (EpicTask) object);
                 break;
             }
             case "class EpicTask$SubTask": {
-                subTaskStorage.put(((EpicTask.SubTask) object).id, (EpicTask.SubTask) object);
+                subTaskStorage.put(((EpicTask.SubTask) object).getId(), (EpicTask.SubTask) object);
                 break;
             }
         }
     }
-/**
+    /**
  * 2. Методы для каждого из типа задач(Задача/Эпик/Подзадача):
  *  2.1 Получение списка всех задач;
  */
     ArrayList<Object> getCompleteListOfAnyTasks(TreeMap<Integer, ? extends Task> treeMap) {
         ArrayList<Object> completeListOfAnyTasks = new ArrayList<>();
-        
+
             for (Integer key : treeMap.keySet()) {
                 completeListOfAnyTasks.add(treeMap.get(key));
             }
         return completeListOfAnyTasks;
     }
-/**
+    /**
  *  2.2 Удаление всех задач;
  */
     void deleteAllTasksOfAnyType(TreeMap<Integer, ? extends Task> treeMap) {
         treeMap.clear();
     }
-/**
+    /**
  *  2.3 Получение по идентификатору;
  */
     Object getTaskOfAnyTypeById(int id) {
@@ -63,7 +88,7 @@ public class Manager {
 /**
  *  2.4 Создание. Сам объект должен передаваться в качестве параметра;
  */
-    public Object createCopyOfTaskOfAnyType(Object object) {
+    Object createCopyOfTaskOfAnyType(Object object) {
         switch (object.getClass().toString()) {
             case "class Task": {
                 return new Task((Task) object);
@@ -124,8 +149,8 @@ public class Manager {
  * 3. Дополнительные методы:
  *  3.1 Получение списка всех подзадач определённого эпика.
  */
-    public ArrayList<EpicTask.SubTask> getCompleteListOfSubTaskByEpicTask(EpicTask epicTask) {
-        return epicTask.subTasks;
+    ArrayList<EpicTask.SubTask> getCompleteListOfSubTaskByEpicTask(EpicTask epicTask) {
+        return epicTask.getSubTasks();
     }
 /**
  * 4. Метод для управления статусом для эпик задач.
@@ -136,10 +161,10 @@ public class Manager {
         int countDone = 0;
 
         for (EpicTask.SubTask subTask : subTasks) {
-            if (subTask.status.equalsIgnoreCase("NEW")) {
+            if (subTask.getStatus().equalsIgnoreCase("NEW")) {
                 countNew++;
             }
-            if (!subTask.status.equalsIgnoreCase("DONE")) {
+            if (!subTask.getStatus().equalsIgnoreCase("DONE")) {
                 countDone++;
             }
         }

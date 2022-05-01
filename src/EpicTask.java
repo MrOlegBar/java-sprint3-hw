@@ -4,32 +4,39 @@ import java.util.Arrays;
  * Класс для создания Epic задач
  */
 public class EpicTask extends Task {
-    ArrayList<SubTask> subTasks;
-/**
+    private final ArrayList<SubTask> subTasks;
+
+    /**
  * Конструктор для создания Epic задач
  */
-    public EpicTask(String nameEpicTask, String descriptionEpicTask, ArrayList<SubTask> subTasks) {
+    EpicTask(String nameEpicTask, String descriptionEpicTask, ArrayList<SubTask> subTasks) {
         super(nameEpicTask, descriptionEpicTask);
+        this.setStatus(Manager.getEpicTaskStatus(subTasks)); // 4. Метод для управления статусом для эпик задач.
         this.subTasks = subTasks;
-        this.status = Manager.getEpicTaskStatus(subTasks); // 4. Метод для управления статусом для эпик задач.
     }
-/**
+    /**
  * Конструктор для копирования Epic задач
  */
-    public EpicTask(EpicTask epicTask) {
-        this(epicTask.name, epicTask.description, epicTask.subTasks);
+    EpicTask(EpicTask epicTask) {
+        this(epicTask.getName(), epicTask.getDescription(), epicTask.subTasks);
+    }
+/**
+ * get метод
+ */
+    ArrayList<SubTask> getSubTasks() {
+        return subTasks;
     }
 
     @Override
     public String toString() {
-        return "ID задачи Epic=\"" + id + "\", Название Epic задачи=\"" + name + "\", Описание=\"" + description + "\""
-                + ", " + Arrays.toString(subTasks.toArray()) + ", Статус=\"" + status + "\"";
+        return "ID задачи Epic=\"" + getId() + "\", Название Epic задачи=\"" + getName() + "\", Описание=\"" + getDescription() + "\""
+                + ", " + Arrays.toString(subTasks.toArray()) + ", Статус=\"" + getStatus() + "\"";
     }
-/**
+    /**
  * Внутренний класс для создания SubTask подзадач Epic задач
  */
     static class SubTask extends Task {
-        String nameEpicTask;
+        private final String nameEpicTask;
 /**
  * Конструктор внутреннего класса для создания SubTask подзадач Epic задач
  */
@@ -40,14 +47,14 @@ public class EpicTask extends Task {
 /**
  * Конструктор для копирования SubTask подзадач Epic задач
  */
-        public SubTask(SubTask subtask) {
-            this(subtask.nameEpicTask, subtask.name, subtask.description, subtask.status);
+        SubTask(SubTask subtask) {
+            this(subtask.nameEpicTask, subtask.getName(), subtask.getDescription(), subtask.getStatus());
         }
 
         @Override
         public String toString() {
-            return "ID подзадачи SubTask=\"" + id + "\", Название Epic задачи=\"" + nameEpicTask
-                    + "\", Название подзадачи=\"" + name + "\", Описание=\"" + description + "\", Статус=\"" + status
+            return "ID подзадачи SubTask=\"" + getId() + "\", Название Epic задачи=\"" + nameEpicTask
+                    + "\", Название подзадачи=\"" + getName() + "\", Описание=\"" + getDescription() + "\", Статус=\"" + getStatus()
                     + "\"";
         }
     }

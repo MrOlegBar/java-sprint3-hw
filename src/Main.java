@@ -55,18 +55,18 @@ public class Main {
  *  2.1 Получение списка всех задач;
  */
         System.out.println("\n    2.1 Получение списка всех задач:");
-        System.out.println(Arrays.toString(manager.getCompleteListOfAnyTasks(manager.taskStorage).toArray()));
-        System.out.println(Arrays.toString(manager.getCompleteListOfAnyTasks(manager.epicTaskStorage).toArray()));
-        System.out.println(Arrays.toString(manager.getCompleteListOfAnyTasks(manager.subTaskStorage).toArray()));
+        System.out.println(Arrays.toString(manager.getCompleteListOfAnyTasks(manager.getTaskStorage()).toArray()));
+        System.out.println(Arrays.toString(manager.getCompleteListOfAnyTasks(manager.getEpicTaskStorage()).toArray()));
+        System.out.println(Arrays.toString(manager.getCompleteListOfAnyTasks(manager.getSubTaskStorage()).toArray()));
 /**
  *  2.2 Удаление всех задач;
  */
-        manager.deleteAllTasksOfAnyType(manager.epicTaskStorage);
+        manager.deleteAllTasksOfAnyType(manager.getEpicTaskStorage());
 
         System.out.println("\n    2.2 Удаление всех задач:");
-        System.out.println(Arrays.toString(manager.getCompleteListOfAnyTasks(manager.taskStorage).toArray()));
-        System.out.println(Arrays.toString(manager.getCompleteListOfAnyTasks(manager.epicTaskStorage).toArray()));
-        System.out.println(Arrays.toString(manager.getCompleteListOfAnyTasks(manager.subTaskStorage).toArray()));
+        System.out.println(Arrays.toString(manager.getCompleteListOfAnyTasks(manager.getTaskStorage()).toArray()));
+        System.out.println(Arrays.toString(manager.getCompleteListOfAnyTasks(manager.getEpicTaskStorage()).toArray()));
+        System.out.println(Arrays.toString(manager.getCompleteListOfAnyTasks(manager.getSubTaskStorage()).toArray()));
 /**
  *  2.3 Получение по идентификатору;
  */
@@ -95,7 +95,7 @@ public class Main {
 
         System.out.println("\n    2.5 Обновление. Новая версия объекта с верным идентификатором передаются в виде"
                 + " параметра:");
-        System.out.println(Arrays.toString(manager.getCompleteListOfAnyTasks(manager.epicTaskStorage).toArray()));
+        System.out.println(Arrays.toString(manager.getCompleteListOfAnyTasks(manager.getEpicTaskStorage()).toArray()));
 /**
  *  2.6 Удаление по идентификатору.
  */
@@ -103,7 +103,7 @@ public class Main {
         manager.removeTaskOfAnyTypeById(2);
 
         System.out.println("\n    2.6 Удаление по идентификатору:");
-        System.out.println(Arrays.toString(manager.getCompleteListOfAnyTasks(manager.taskStorage).toArray()));
+        System.out.println(Arrays.toString(manager.getCompleteListOfAnyTasks(manager.getTaskStorage()).toArray()));
 /**
  * 3. Дополнительные методы:
  *  3.1 Получение списка всех подзадач определённого эпика.

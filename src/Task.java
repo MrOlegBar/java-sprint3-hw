@@ -2,15 +2,16 @@ public class Task {
 /**
  * Класс для создания Task задач
  */
-    int id;
-    String name;
-    String description;
-    String status;
+    private final int id;
+    private final String name;
+    private final String description;
+    private String status;
 /**
  * Конструктор для создания Task задач
  */
-    public Task(String nameTask, String descriptionTask, String statusTask) {
-        this.id = ++Manager.Id;
+    Task(String nameTask, String descriptionTask, String statusTask) {
+        this.id = Manager.getId() + 1;
+        Manager.setId(this.id);
         this.name = nameTask;
         this.description = descriptionTask;
         this.status = statusTask;
@@ -18,16 +19,38 @@ public class Task {
 /**
  * Конструктор для создания задач наследников Epic задач и SubTask подзадач
  */
-    public Task(String nameTask, String descriptionTask) {
-        this.id = ++Manager.Id;
+    Task(String nameTask, String descriptionTask) {
+        this.id = Manager.getId() + 1;
+        Manager.setId(this.id);
         this.name = nameTask;
         this.description = descriptionTask;
     }
 /**
  * Конструктор для копирования Task задач
  */
-    public Task(Task task) {
+    Task(Task task) {
         this(task.name, task.description, task.status);
+    }
+/**
+ * get и set методы
+ */
+    int getId() {
+        return id;
+    }
+    String getName() {
+        return name;
+    }
+
+    String getDescription() {
+        return description;
+    }
+
+    String getStatus() {
+        return status;
+    }
+
+    void setStatus(String status) {
+        this.status = status;
     }
 
     @Override
